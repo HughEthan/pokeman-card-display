@@ -1,0 +1,28 @@
+body {
+    background: rgb(176, 196, 222);
+    background: radial-gradient(circle,  rgba(250,250,250) 50%, rgb(176, 196, 222) 100% );
+    font-family: 'Comic Neue', bold;
+}
+
+.intro-title {
+    display: flex;
+    justify-content: center;
+}
+
+ 
+.pokeman-list-title {
+    display: flex;
+    justify-content: center;
+}
+
+#pokeman-table {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+}
