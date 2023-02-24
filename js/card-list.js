@@ -1,13 +1,14 @@
 let firstCard = document.getElementById('first-card')
 let isLoaded = false;
 let pokemonCardsDiv = document.getElementById('pokeman-cards')
-let table1 = document.getElementById('table-1')
-let table2 = document.getElementById('table-2')
-let table3 = document.getElementById('table-3')
+let table1 = document.querySelector('#table-1')
+let table2 = document.querySelector('#table-2')
+let table3 = document.querySelector('#table-3')
 
 let cards = [];
 let apiCards = [];
 let pokemanCard = {};
+let pokemanCards =[];
 
 async function fetchPokemanCards() {
     const apiURL = 'https://pokeapi.co/api/v2/pokemon/'
@@ -22,6 +23,7 @@ async function fetchPokemanCards() {
         isLoaded = true;
         displayPokemanCards();
         displayEachCard(cards);
+        console.log(pokemanCards)
 
     } catch (error) {
         alert(error);
@@ -39,7 +41,7 @@ async function fetchEachCard(url) {
     try {
         const response = await fetch(url);
         pokemanCard = await response.json();
-        console.log(pokemanCard.id);
+        pokemanCards.push(pokemanCard)
     } catch (error) {
         console.log("error")
     }
@@ -53,9 +55,10 @@ function setFirstCard() {
 function displayPokemanCards() {
 
     cards.forEach( (card, index) => {
-        const li = document.createElement('h1');
+        const li = document.createElement('li');
         li.innerText = card.name;
         li.setAttribute('class', 'cards')
+        li.setAttribute('id', card.url)
     
         if (index % 3 ==0) {
         table1.appendChild(li)
@@ -74,8 +77,12 @@ console.log(cards)
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchPokemanCards();
-    if (isLoaded) {
-        
-        
-    }
+    
+    const items = document.querySelectorAll('cards')
+    items.forEach( item => {
+        item.addEventListener('click', event => {
+            console.log(event.target.id)
+        })
+    })
+    console.log(items)
 })
