@@ -15,14 +15,23 @@ body {
     justify-content: center;
 }
 
-#pokeman-table {
+#pokemon-table {
     display: flex;
     justify-content: space-around;
     flex-direction: row;
-    
 }
 
 .cards {
     display: flex;
     justify-content: center;
 }
+
+.pokemon-name {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    border: solid black;
+    border-radius: 15px;
+    background-color: lightgray;
+}
+

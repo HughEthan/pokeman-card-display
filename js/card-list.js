@@ -1,88 +1,66 @@
-let firstCard = document.getElementById('first-card')
-let isLoaded = false;
-let pokemonCardsDiv = document.getElementById('pokeman-cards')
-let table1 = document.querySelector('#table-1')
-let table2 = document.querySelector('#table-2')
-let table3 = document.querySelector('#table-3')
+const table1 = document.getElementById('table-1')
+const table2 = document.getElementById('table-2')
+const table3 = document.getElementById('table-3')
 
-let cards = [];
-let apiCards = [];
-let pokemanCard = {};
-let pokemanCards =[];
-
-async function fetchPokemanCards() {
+async function fetchPokemonNames() {
     const apiURL = 'https://pokeapi.co/api/v2/pokemon/'
 
     try {
-        isLoaded = true;
         const response = await fetch(apiURL);
-        apiCards = await response.json();
-        console.log(apiCards.results)
-        cards = apiCards.results
-        console.log(cards)
-        isLoaded = true;
-        displayPokemanCards();
-        displayEachCard(cards);
-        console.log(pokemanCards)
-
+        let apiCards = await response.json();
+        let pokemonCards = apiCards.results
+        displayPokeman(pokemonCards)
     } catch (error) {
         alert(error);
         console.log("ERROR mannnnnnnnnn")
     }
-}
+  }
 
-
-function displayEachCard(a) {
-    a.forEach( (pokeman) => {
-        fetchEachCard(pokeman.url)
+  function displayPokeman(a) {
+    counter = 0;
+    a.forEach( (value) => {
+       getMoreCardDetails(value, counter)
+       counter++;
     })
 }
-async function fetchEachCard(url) {
+
+async function getMoreCardDetails(value, counter) {
+    let card = {};
     try {
-        const response = await fetch(url);
-        pokemanCard = await response.json();
-        pokemanCards.push(pokemanCard)
-    } catch (error) {
-        console.log("error")
-    }
-}
-
-
-function setFirstCard() {
-    firstCard.innerText = 'First card baby'
-}
-
-function displayPokemanCards() {
-
-    cards.forEach( (card, index) => {
-        const li = document.createElement('li');
-        li.innerText = card.name;
-        li.setAttribute('class', 'cards')
-        li.setAttribute('id', card.url)
-    
-        if (index % 3 ==0) {
-        table1.appendChild(li)
-        } else if (index % 2 == 0) {
-            table2.appendChild(li)
-        } else {
+     const response = await fetch(value.url);
+     card = await response.json();
+     const li = document.createElement('div')
+     console.log(card.sprites.back_default)
+         const header = document.createElement('h1')
+         header.innerText = card.name
+         const sprite = document.createElement('img')
+         sprite.setAttribute('class', 'pokemon-sprite')
+         sprite.src = card.sprites.back_default
+         li.appendChild(sprite)
+         li.setAttribute('class', 'pokemon-name')
+         li.appendChild(header)
+         li.addEventListener('click', (event) => {
+             console.log(event.target)
+         })
+         if (counter % 3 ==0 ) {
+            table1.append(li)
+         } else if (counter % 2 == 0) {
+            table2.append(li)
+         } else {
             table3.appendChild(li)
-        }
+         }
 
 
-
-    })
+ } catch (error) {
+     alert(error);
+     console.log("ERROR")
+ }
 }
 
-console.log(cards)
+
+
+fetchPokemonNames();
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetchPokemanCards();
     
-    const items = document.querySelectorAll('cards')
-    items.forEach( item => {
-        item.addEventListener('click', event => {
-            console.log(event.target.id)
-        })
-    })
-    console.log(items)
 })
