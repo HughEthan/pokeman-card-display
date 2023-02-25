@@ -26,17 +26,26 @@ body {
     justify-content: center;
 }
 
-.pokemon-name {
+.pokemon-card {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin-top: 15px;
     border: solid black;
     border-radius: 15px;
-    background-color: lightgray;
-    
+    background-color: rgb(151, 103, 14);
+    font-size: 25px;
+
 }
 
-.pokemon-name:hover {
+.pokemon-card:hover {
     background-color: white;
+    cursor: pointer;
+}
+
+.pokemon-sprite {
+    border: solid white 10px;
+    border-radius: 15px;
 }
 
