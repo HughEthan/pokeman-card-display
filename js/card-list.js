@@ -31,6 +31,8 @@ async function getMoreCardDetails(value, counter) {
      card = await response.json();
      const li = document.createElement('div')
      console.log(card.sprites.back_default)
+         const link = document.createElement('a')
+         link.href = "pokemoncard.html"
          const header = document.createElement('h1')
          header.innerText = card.name
          const sprite = document.createElement('img')
@@ -39,6 +41,7 @@ async function getMoreCardDetails(value, counter) {
          li.appendChild(sprite)
          li.setAttribute('class', 'pokemon-name')
          li.appendChild(header)
+         li.appendChild(link)
          li.addEventListener('click', (event) => {
              console.log(event.target)
          })
